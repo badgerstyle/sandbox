@@ -2,7 +2,7 @@ App = Ember.Application.create();
 
 App.Router.map(function() {
 	this.resource("search", function() {
-		this.route("results", {path: "/results"});
+		this.route("results");
 	});
 });
 
@@ -13,7 +13,7 @@ App.IndexController = Ember.ObjectController.extend({
 		search: function() {
 			var filter = this.get("filter");
 
-			this.transitionToRoute("search", {queryParams: {filter: filter}});
+			this.transitionToRoute("search.results", {queryParams: {filter: filter}});
 		}
 	}
 });
@@ -35,14 +35,7 @@ App.SearchRoute = Ember.Route.extend({
             bathroomCount: 3,
             propertyType: "Single Family Home"
         }
-	},
-
-    afterModel: function(model) {
-        console.log("AfterModel - SearchRoute");
-        console.log(model);
-
-        this.redirect("results");
-    }
+	}
 });
 
 App.SearchController = Ember.ObjectController.extend({
@@ -51,10 +44,10 @@ App.SearchController = Ember.ObjectController.extend({
 
     actions: {
         search: function() {
-            alert("Apply filter....");
+            alert("update search results....");
 
             // TODO: Refresh ResultsRoute
-
+            this.transitionToRoute("search.results");
         }
     }
 });
